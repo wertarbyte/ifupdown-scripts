@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# http://wertarbyte.de/debian/
+#
+# Place in /etc/network/if-up.d/ and link to
+# /etc/network/if-down.d/
+# 
+# Configure additional addresses by specifying
+# "addresses" in your /etc/network/interfaces file:
+# 
+# iface eth0 inet dhcp
+#   addresses 10.0.0.1/8 192.168.10.4/24
+#   addresses-foo 192.168.2.4/24
+#   addresses-bar 172.17.2.1/16
+#
+# This script is published under the rules of the GPLv3
+# http://www.gnu.org/licenses/gpl.html
+
+CMD_IP=/bin/ip
+
+if [ ! -x $CMD_IP ]; then
+  exit 0
+fi
+
+if [ "$MODE" = "start" ]; then
+  OP="add"
+else
+  OP="del"
+fi
+# join all addresses-lines
+ADDRESSES=$(/usr/bin/awk 'BEGIN {
+    add="";
+    for (key in ENVIRON) {
+        if (key ~ /^IF_ADDRESSES(-|_|$)/) {
+            add=add " " ENVIRON[key];
+        }
+    }
+    print add;
+  }')
+for ADDR in $ADDRESSES; do
+  $CMD_IP addr $OP $ADDR dev $IFACE
+done

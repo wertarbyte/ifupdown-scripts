@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# wireless-tools-snooze
+#
+# This script can be placed in /etc/network/if-pre-up.d/ to buy
+# some more time for access point association. Some wifi chipsets
+# also give up after missing one association, so the script does
+# trigger a configurable number of reassociations.
+#
+# By Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# http://wertarbyte.de/
+
+IWCONFIG=/sbin/iwconfig
+
+if [ ! -x $IWCONFIG ]; then
+  exit 0
+fi
+
+if [ "$IF_WIRELESS" != "yes" ]; then
+  exit 0
+fi
+
+if [ "$IF_WIRELESS_SNOOZE" != "yes" ]; then
+  exit 0
+fi
+
+if [ "$IF_WIRELESS_MODE" != "managed" ]; then
+  echo "Not a managed interface, snooze disabled" >&2
+  exit 0
+fi
+
+is_associated() {
+  [ "$(/sbin/iwgetid --raw --ap "$IFACE")" != "00:00:00:00:00:00" ]
+}
+
+trigger_association() {
+  $IWCONFIG "$IFACE" ap "${IF_WIRELESS_AP:-any}" essid "${IF_WIRELESS_ESSID:-any}"
+}
+
+COUNTDOWN=10
+while ! is_associated && [ "$COUNTDOWN" -ge 0 ]; do
+    echo "Device $IFACE is not yet associated, waking it... ($COUNTDOWN tries left)" >&2
+    trigger_association
+    # Does not work in 'dash', the new default for /bin/sh
+    #let COUNTDOWN--
+    COUNTDOWN=$(($COUNTDOWN-1))
+    sleep 1
+done
+
+if is_associated; then
+    echo "Successfully triggered $IFACE association" >&2
+else
+    echo "Giving up on interface $IFACE" >&2
+fi

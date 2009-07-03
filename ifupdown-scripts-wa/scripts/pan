@@ -1,0 +1,33 @@
+#!/bin/sh
+# Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# http://wertarbyte.de/debian/
+#
+# This script is an addition to ifupdown and establishes
+# a bluetooth PAN connection while configuring the network
+#
+# Place this file in /etc/network/if-pre-up.d/ and create a
+# symlink to /etc/network/if-post-down.d/
+# 
+# Afterwards, a PAN profile can be configured like this:
+#
+# iface bnep0 inet dhcp
+#   # your cell phone address
+#   pan_address 00:DE:AD:BE:EF
+
+HCITOOL=/usr/bin/hcitool
+PAND=/usr/bin/pand
+
+if [ ! -x $HCITOOL ] || [ ! -x $PAND ]; then
+  exit 0
+fi
+
+if [ -n "$IF_PAN_ADDRESS" ]; then
+  if [ "$MODE" = "start" ]; then
+	$HCITOOL cc "$IF_PAN_ADDRESS" && \
+	$HCITOOL enc "$IF_PAN_ADDRESS" && \
+	$PAND -n -c "$IF_PAN_ADDRESS"
+  else
+	$PAND -k "$IF_PAN_ADDRESS"
+	$HCITOOL dc "$IF_PAN_ADDRESS"
+  fi
+fi
