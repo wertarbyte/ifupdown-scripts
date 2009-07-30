@@ -14,10 +14,17 @@
 #   addresses-foo 192.168.2.4/24
 #   addresses-bar 172.17.2.1/16
 #
+# To make the addresses visible in legacy commands like
+# "ifconfig", the script can create the deprecated alias
+# devices (e.g. eth0:1) for you. To achieve this bevahiour,
+# specify "create_alias_devices yes" in your configuration
+# stanca.
+#
 # This script is published under the rules of the GPLv3
 # http://www.gnu.org/licenses/gpl.html
 
 CMD_IP=/bin/ip
+
 
 if [ ! -x $CMD_IP ]; then
   exit 0
@@ -28,6 +35,12 @@ if [ "$MODE" = "start" ]; then
 else
   OP="del"
 fi
+COMPAT_DEVS=""
+
+if [ "$IF_CREATE_ALIAS_DEVICES" = "yes" ]; then
+    COMPAT_DEVS="1"
+fi
+
 # join all addresses-lines
 ADDRESSES=$(/usr/bin/awk 'BEGIN {
     add="";
@@ -38,6 +51,14 @@ ADDRESSES=$(/usr/bin/awk 'BEGIN {
     }
     print add;
   }')
+
+N=1
+LABEL=""
 for ADDR in $ADDRESSES; do
-  $CMD_IP addr $OP $ADDR dev $IFACE
+  # we don't want to specify the alias device when removing addresses
+  if [ "yes" = "$COMPAT_DEVS" -a "del" != "$OP" ]; then
+    LABEL="label $IFACE:$N"
+    N=$(($N+1))
+  fi
+  $CMD_IP addr $OP $ADDR dev $IFACE $LABEL
 done
