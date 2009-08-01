@@ -1,0 +1,68 @@
+#!/bin/sh
+# Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# http://wertarbyte.de/debian/
+#
+# This scripts takes down specified network interfaces
+# when connecting a new one. This is useful if you are
+# able to connect to the same network through several ways,
+# e.g. WLAN and wired interfaces
+#
+# Place in /etc/network/if-pre-up.d/conflicts and symlink to
+# /etc/network/if-down.d/conflicts
+#
+# example configuration:
+#
+# iface eth0 inet dhcp
+#   conflicts wlan0
+#   conflicts-replace wlan0
+#
+# iface wlan0 inet dhcp
+#   conflicts eth0
+#
+# Bringing one of the interfaces up shuts down the other one.
+# If eth0 is controlled by ifplugd and taken down by it, wlan0
+# will step in and replace the network connection. Manually taking
+# down the interface will not trigger this behaviour.
+
+called_by_pid() {
+    # traverse the process tree upwards
+    # and find out whether we are a descendant
+    # of the named pid
+    local ME="$1"
+    local DADDY="$2"
+
+    PID=$ME
+    while [[ "$PID" -gt 0 ]]; do
+        PID=$(ps -p $PID -o ppid=)
+        # we found him
+        [ "$PID" -eq "$DADDY" ] && return 0
+    done
+    # I could not find your daddy, I'm really sorry
+    return 1
+}
+
+if [ -n "$IF_CONFLICTS" ]; then
+  if [ "$MODE" = "start" ]; then
+      for ENTRY in "$IF_CONFLICTS"; do
+        if egrep -q "^$ENTRY($|=)" /etc/network/run/ifstate; then
+            echo "Shutting down conflicting interface $ENTRY"
+            /sbin/ifdown "$ENTRY"
+        fi
+      done
+  else
+      # maybe restore the old interface?
+      # this could lead to infinite loops and
+      # make it impossible to shut down networking
+      # completely (think shutdown/suspend)
+      if [ -n "$IF_CONFLICTS_REPLACE" ]; then
+          # only replace the interface if we are called by ifplugd
+          if [ -e "/var/run/ifplugd.${IFACE}.pid" ]; then
+              IF_PLUGD=$(cat /var/run/ifplugd.${IFACE}.pid)
+              if called_by_pid $$ $IF_PLUGD; then
+                  echo "Bringing up replacement interface $IF_CONFLICTS_REPLACE"
+                  /sbin/ifup "$IF_CONFLICTS_REPLACE"
+              fi
+          fi
+      fi
+  fi
+fi
