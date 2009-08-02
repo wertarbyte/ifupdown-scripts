@@ -8,7 +8,7 @@
 # e.g. WLAN and wired interfaces
 #
 # Place in /etc/network/if-pre-up.d/conflicts and symlink to
-# /etc/network/if-down.d/conflicts
+# /etc/network/if-post-down.d/conflicts
 #
 # example configuration:
 #
