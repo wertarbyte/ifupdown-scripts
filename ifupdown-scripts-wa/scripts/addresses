@@ -76,13 +76,19 @@ echo "$ADDRESSES" | while read ADDR ALABEL; do
   LABEL=""
   # we don't want to specify the label when removing addresses
   if [ "del" != "$OP" ]; then
-    if [ "$COMPAT_DEVS" -a ! "$LABEL_ADDRESSES" ]; then
+    # we don't want to use the supplied labels
+    if [ ! "$LABEL_ADDRESSES" ]; then
+        ALABEL=""
+    fi
+    # Numeric labels (old style eth0:X)
+    if [ "$COMPAT_DEVS" -a -z "$ALABEL" ]; then
         ALABEL="$N"
         N=$(($N+1))
     fi
-    if [ "$ALABEL" ] && [ "$COMPAT_DEVS" -o "LABEL_ADDRESSES" ]; then
+    # If we have a label and want it...
+    if [ "$ALABEL" ] && [ "$COMPAT_DEVS" -o "$LABEL_ADDRESSES" ]; then
         LABEL="label $IFACE:$ALABEL"
     fi
   fi
-  echo $CMD_IP addr $OP $ADDR dev $IFACE $LABEL
+  $CMD_IP addr $OP $ADDR dev $IFACE $LABEL
 done
