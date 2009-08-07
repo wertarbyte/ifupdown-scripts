@@ -65,8 +65,14 @@ fi
 # print all addresses with the label next to it
 ADDRESSES="$(/usr/bin/awk 'BEGIN {
     for (key in ENVIRON) {
-        if (key ~ /^IF_ADDRESSES(-|_|$)/) {
-            label = tolower( substr(key, length("IF_ADDRESSES_")+1) );
+        if (key ~ /^IF_ADDRESSES(_|$)/) {
+            # we just use the third item of the splitted key and
+            # consider it the "short" label - since device names are limited
+            # to 16 characters, a short label can be placed there while adding
+            # a more elaborate one to the config as well
+            # (e.g. addresses-www-webserver 10.0.0.1/24)
+            split( key, L, "_" );
+            label = tolower( L[3] );
             split(ENVIRON[key], A);
             for (j in A) {
                 addr = A[j];
@@ -95,5 +101,7 @@ echo "$ADDRESSES" | while read ADDR ALABEL; do
         LABEL="label $IFACE:$ALABEL"
     fi
   fi
-  $CMD_IP addr $OP $ADDR dev $IFACE $LABEL
+  FULL_CMD="$CMD_IP addr $OP $ADDR dev $IFACE $LABEL"
+  $FULL_CMD || \
+  echo "Error executing: $FULL_CMD" >&2
 done
