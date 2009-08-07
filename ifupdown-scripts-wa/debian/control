@@ -1,0 +1,26 @@
+Source: ifupdown-scripts-wa
+Section: admin
+Priority: extra
+Maintainer: Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.1
+Homepage: http://wertarbyte.de/
+
+Package: ifupdown-scripts-wa
+Architecture: all
+Depends: ${misc:Depends}, iproute
+Suggests: bluez-utils, wireless-tools, ifplugd
+Description: Additional ifupdown scripts for configuring network devices
+ This package includes the following scripts:
+ * addresses
+     allows multiple addresses to be added to an network device
+     in a convenient CIDR notation
+ * conflicts
+     automatically (de)configures an interface when another one comes up
+     or goes down
+ * pan
+     connects your computer to an Bluetooth PAN access point
+     before configuring the interface
+ * wireless-tools-snooze
+     waits for association with the access point before retrieving
+     an IP address for the wireless network

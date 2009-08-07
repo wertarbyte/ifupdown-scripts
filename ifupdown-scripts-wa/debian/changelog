@@ -1,0 +1,30 @@
+ifupdown-scripts-wa (0.1.20090807) unstable; urgency=low
+
+  * addresses script can now use the address labels specified in /etc/network/interfaces
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Fri, 07 Aug 2009 10:14:45 +0200
+
+ifupdown-scripts-wa (0.1.20090801) unstable; urgency=low
+
+  * updated conflicts script
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Sat, 01 Aug 2009 12:57:59 +0200
+
+ifupdown-scripts-wa (0.1.20090730) unstable; urgency=low
+
+  * the addresses script can now create alias devices visible to legacy applications like "ifconfig"
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbygte.de>  Thu, 30 Jul 2009 16:14:53 +0200
+
+ifupdown-scripts-wa (0.1.20090712) unstable; urgency=low
+
+  * Minor fixes to wireless-tools-snooze
+  * triggering the interface must now be explicitly enabled
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Sun, 12 Jul 2009 22:43:37 +0200
+
+ifupdown-scripts-wa (0.1.20090703) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Fri, 03 Jul 2009 10:05:14 +0200
