@@ -33,6 +33,18 @@
 # must not exceed 16 characters. This includes the device name
 # and the : separating device name und custom string.
 #
+# To allow the inclusion of selfexplaining labels in the configuration,
+# a short alias label can be specified:
+#
+# iface eth0 inet dhcp
+#   label_addresses yes
+#   addresses-www-webserver 10.0.0.3/24
+#   addresses-smtp-mailrelay 10.0.0.4/24
+#   addresses-dns 10.0.0.5/24
+#
+# With this configuration, the addresses will be labeled "www", "smtp",
+# and "dns", ignoring the (optional) longer descriptions following
+#
 # This script is published under the rules of the GPLv3
 # http://www.gnu.org/licenses/gpl.html
 
