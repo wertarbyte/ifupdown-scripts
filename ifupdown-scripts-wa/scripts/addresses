@@ -20,6 +20,14 @@
 # specify "create_alias_devices yes" in your configuration
 # stanca.
 #
+# You can also use the labels used in /etc/network/interfaces
+# to distinguish the configured addresses in the output of
+# "ifconfig" and "ip addr". Simply set the configuration
+# option "label_addresses yes". This option can also be
+# combined with "create_alias_devices": While any addresses
+# line accompanied by a label will be marked with it, anonymous
+# addresses will be enumerated by the script.
+#
 # This script is published under the rules of the GPLv3
 # http://www.gnu.org/licenses/gpl.html
 
@@ -36,29 +44,45 @@ else
   OP="del"
 fi
 COMPAT_DEVS=""
+LABEL_ADDRESSES=""
 
 if [ "$IF_CREATE_ALIAS_DEVICES" = "yes" ]; then
+    # create enumerated labels (eth0:1, eth0:2...)
     COMPAT_DEVS="1"
 fi
 
-# join all addresses-lines
-ADDRESSES=$(/usr/bin/awk 'BEGIN {
-    add="";
+if [ "$IF_LABEL_ADDRESSES" = "yes" ]; then
+    # use labels specifed in the configation (eth0:https, eth0:vserver...)
+    LABEL_ADDRESSES="1"
+fi
+
+
+# print all addresses with the label next to it
+ADDRESSES="$(/usr/bin/awk 'BEGIN {
     for (key in ENVIRON) {
         if (key ~ /^IF_ADDRESSES(-|_|$)/) {
-            add=add " " ENVIRON[key];
+            label = tolower( substr(key, length("IF_ADDRESSES_")+1) );
+            split(ENVIRON[key], A);
+            for (j in A) {
+                addr = A[j];
+                print addr " " label;
+            }
         }
     }
-    print add;
-  }')
+}')"
 
 N=1
-LABEL=""
-for ADDR in $ADDRESSES; do
-  # we don't want to specify the alias device when removing addresses
-  if [ "yes" = "$COMPAT_DEVS" -a "del" != "$OP" ]; then
-    LABEL="label $IFACE:$N"
-    N=$(($N+1))
+echo "$ADDRESSES" | while read ADDR ALABEL; do
+  LABEL=""
+  # we don't want to specify the label when removing addresses
+  if [ "del" != "$OP" ]; then
+    if [ "$COMPAT_DEVS" -a ! "$LABEL_ADDRESSES" ]; then
+        ALABEL="$N"
+        N=$(($N+1))
+    fi
+    if [ "$ALABEL" ] && [ "$COMPAT_DEVS" -o "LABEL_ADDRESSES" ]; then
+        LABEL="label $IFACE:$ALABEL"
+    fi
   fi
-  $CMD_IP addr $OP $ADDR dev $IFACE $LABEL
+  echo $CMD_IP addr $OP $ADDR dev $IFACE $LABEL
 done
