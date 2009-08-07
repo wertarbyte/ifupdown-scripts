@@ -31,7 +31,7 @@
 # NOTE!
 # Due to kernel limitations, the complete label of an address
 # must not exceed 16 characters. This includes the device name
-# and the : seperating device name und custom string.
+# and the : separating device name und custom string.
 #
 # This script is published under the rules of the GPLv3
 # http://www.gnu.org/licenses/gpl.html
