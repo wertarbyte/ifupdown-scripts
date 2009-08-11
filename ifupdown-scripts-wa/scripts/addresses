@@ -94,6 +94,11 @@ ADDRESSES="$(/usr/bin/awk 'BEGIN {
     }
 }')"
 
+# Nothing to do?
+if [ -z "$ADDRESSES" ]; then
+    exit 0
+fi
+
 N=1
 echo "$ADDRESSES" | while read ADDR ALABEL; do
   LABEL=""
