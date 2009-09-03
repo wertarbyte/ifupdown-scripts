@@ -43,7 +43,7 @@ called_by_pid() {
 
 if [ -n "$IF_CONFLICTS" ]; then
   if [ "$MODE" = "start" ]; then
-      for ENTRY in "$IF_CONFLICTS"; do
+      for ENTRY in $IF_CONFLICTS; do
         if egrep -q "^$ENTRY($|=)" /etc/network/run/ifstate; then
             echo "Shutting down conflicting interface $ENTRY"
             /sbin/ifdown "$ENTRY"
