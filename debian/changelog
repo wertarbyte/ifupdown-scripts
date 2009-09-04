@@ -1,3 +1,10 @@
+ifupdown-scripts-wa (0.1.20090904) unstable; urgency=low
+
+  * fixed a small mistake in conflicts script that prevented the specification
+    of multiple conflicting interfaces
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Fri, 04 Sep 2009 16:53:15 +0200
+
 ifupdown-scripts-wa (0.1.20090811) unstable; urgency=low
 
   * minor tweak to addresses script, interfaces with no additional addresses will not generate a (harmless) error message anymore
