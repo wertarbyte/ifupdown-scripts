@@ -24,9 +24,10 @@
 #   conflicts eth0
 #
 # Bringing one of the interfaces up shuts down the other one.
-# If eth0 is controlled by ifplugd and taken down by it, wlan0
-# will step in and replace the network connection. Manually taking
-# down the interface will not trigger this behaviour.
+# If eth0 is controlled by ifplugd or netplugd and taken down by
+# it, wlan0 will step in and replace the network connection.
+# Manually taking down the interface will not trigger this
+# behaviour.
 
 called_by_pid() {
     # traverse the process tree upwards
@@ -59,13 +60,16 @@ if [ -n "$IF_CONFLICTS" ]; then
       # make it impossible to shut down networking
       # completely (think shutdown/suspend)
       if [ -n "$IF_CONFLICTS_REPLACE" ]; then
-          # only replace the interface if we are called by ifplugd
+          # only replace the interface if we are called by ifplugd/netplugd
+          PLUGD=""
           if [ -e "/var/run/ifplugd.${IFACE}.pid" ]; then
-              IF_PLUGD=$(cat /var/run/ifplugd.${IFACE}.pid)
-              if called_by_pid $$ $IF_PLUGD; then
-                  echo "Bringing up replacement interface $IF_CONFLICTS_REPLACE"
-                  /sbin/ifup "$IF_CONFLICTS_REPLACE"
-              fi
+              PLUGD=$(cat /var/run/ifplugd.${IFACE}.pid)
+          elif [ -e "/var/run/netplugd.pid" ]; then
+              PLUGD=$(cat /var/run/ifplugd.${IFACE}.pid)
+          fi
+          if [ -n "$PLUGD" ] && called_by_pid $$ $PLUGD; then
+              echo "Bringing up replacement interface $IF_CONFLICTS_REPLACE"
+              /sbin/ifup "$IF_CONFLICTS_REPLACE"
           fi
       fi
   fi
