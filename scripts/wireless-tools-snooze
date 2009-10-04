@@ -1,14 +1,14 @@
 #!/bin/sh
 #
-# wireless-tools-snooze
+# /etc/network/if-pre-up.d/wireless-tools-snooze
+#
+# By Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# http://wertarbyte.de/debian/
 #
 # This script can be placed in /etc/network/if-pre-up.d/ to buy
 # some more time for access point association. Some wifi chipsets
 # also give up after missing one association, so the script does
 # trigger a configurable number of reassociations.
-#
-# By Stefan Tomanek <stefan.tomanek@wertarbyte.de>
-# http://wertarbyte.de/
 
 IWCONFIG=/sbin/iwconfig
 IFCONFIG=/sbin/ifconfig

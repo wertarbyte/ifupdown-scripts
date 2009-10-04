@@ -1,5 +1,8 @@
 #!/bin/sh
 #
+# /etc/network/if-up.d/addresses
+# /etc/network/if-down.d/addresses
+#
 # Stefan Tomanek <stefan.tomanek@wertarbyte.de>
 # http://wertarbyte.de/debian/
 #

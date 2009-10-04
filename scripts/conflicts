@@ -1,4 +1,8 @@
 #!/bin/sh
+#
+# /etc/network/if-pre-up.d/conflicts
+# /etc/network/if-post-down.d/conflicts
+#
 # Stefan Tomanek <stefan.tomanek@wertarbyte.de>
 # http://wertarbyte.de/debian/
 #
