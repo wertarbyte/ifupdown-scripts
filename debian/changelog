@@ -1,3 +1,9 @@
+ifupdown-scripts-wa (0.1.20091007) unstable; urgency=low
+
+  * made conflicts script aware of netplugd
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Wed, 07 Oct 2009 10:59:24 +0200
+
 ifupdown-scripts-wa (0.1.20090904) unstable; urgency=low
 
   * fixed a small mistake in conflicts script that prevented the specification
