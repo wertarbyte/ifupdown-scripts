@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# /etc/network/if-pre-up.d/vpnc
+# /etc/network/if-down.d/vpnc
+#
+# Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# http://wertarbyte.de/debian/
+
+VPNC=/usr/sbin/vpnc
+
+if [ ! -x $VPNC ]; then
+    exit 0
+fi
+
+if [ -z "$IF_VPNC_CONFIG" ]; then
+    exit 0
+fi
+
+CONF_FILE="/etc/vpnc/${IF_VPNC_CONFIG}.conf"
+PID_FILE="/var/run/vpnc.${IFACE}.pid"
+
+if [ "$MODE" = "start" ]; then
+    if [ -e "$CONF_FILE" ]; then
+        $VPNC --pid-file $PID_FILE "$CONF_FILE"
+    else
+        echo "Unable to access configuration file $CONF_FILE" >&2
+    fi
+else
+    if [ -r $PID_FILE ]; then
+        VPNC_PID=$(cat $PID_FILE)
+        echo "Terminating vpnc process ($VPNC_PID)"
+        kill $VPNC_PID
+    fi
+fi

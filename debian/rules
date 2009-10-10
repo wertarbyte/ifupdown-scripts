@@ -62,6 +62,10 @@ install: build
 	install -D $(CURDIR)/scripts/conflicts $(CURDIR)/debian/ifupdown-scripts-wa/etc/network/if-pre-up.d/conflicts
 	mkdir -p $(CURDIR)/debian/ifupdown-scripts-wa/etc/network/if-post-down.d/
 	ln -s ../if-pre-up.d/conflicts $(CURDIR)/debian/ifupdown-scripts-wa/etc/network/if-post-down.d/conflicts
+	
+	install -D $(CURDIR)/scripts/vpnc $(CURDIR)/debian/ifupdown-scripts-wa/etc/network/if-pre-up.d/vpnc
+	mkdir -p $(CURDIR)/debian/ifupdown-scripts-wa/etc/network/if-down.d/
+	ln -s ../if-pre-up.d/vpnc $(CURDIR)/debian/ifupdown-scripts-wa/etc/network/if-down.d/vpnc
 
 # Build architecture-independent files here.
 binary-indep: install

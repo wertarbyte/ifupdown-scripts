@@ -1,3 +1,9 @@
+ifupdown-scripts-wa (0.1.20091010) unstable; urgency=low
+
+  * added vpnc script
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Sat, 10 Oct 2009 10:52:38 +0200
+
 ifupdown-scripts-wa (0.1.20091007) unstable; urgency=low
 
   * made conflicts script aware of netplugd
