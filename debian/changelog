@@ -1,3 +1,10 @@
+ifupdown-scripts-wa (0.2.0) unstable; urgency=low
+
+  * fixed script permissions
+  * changed version numbering scheme
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Sun, 11 Oct 2009 20:04:05 +0200
+
 ifupdown-scripts-wa (0.1.20091010) unstable; urgency=low
 
   * added vpnc script
