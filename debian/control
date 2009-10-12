@@ -8,8 +8,9 @@ Homepage: http://wertarbyte.de/
 
 Package: ifupdown-scripts-wa
 Architecture: all
-Depends: ${misc:Depends}, iproute
-Suggests: bluez-utils, wireless-tools, ifplugd
+Depends: ${misc:Depends}
+Suggests: bluez-utils, iproute, wireless-tools, ifplugd, vpnc
+Provides: ifupdown-scripts-addresses, ifupdown-scripts-pan, ifupdown-scripts-conflicts, ifupdown-scripts-vpnc, ifupdown-scripts-wireless-tools-snooze
 Description: Additional ifupdown scripts for configuring network devices
  This package includes the following scripts:
  * addresses
@@ -21,6 +22,8 @@ Description: Additional ifupdown scripts for configuring network devices
  * pan
      connects your computer to an Bluetooth PAN access point
      before configuring the interface
+ * vpnc
+     controls a cisco VPN connect through ifupdown
  * wireless-tools-snooze
      waits for association with the access point before retrieving
      an IP address for the wireless network
