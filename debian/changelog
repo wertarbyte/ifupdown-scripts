@@ -1,3 +1,9 @@
+ifupdown-scripts-wa (0.2.0-1) unstable; urgency=low
+
+  * updated debian/control information
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Mon, 12 Oct 2009 20:04:55 +0200
+
 ifupdown-scripts-wa (0.2.0) unstable; urgency=low
 
   * fixed script permissions
