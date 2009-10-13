@@ -11,11 +11,3 @@
 
 %:
 	dh  $@
-
-override_dh_install:
-	dh_install
-	dh_link /etc/network/if-pre-up.d/pan /etc/network/if-post-down.d/pan
-	dh_link /etc/network/if-up.d/addresses /etc/network/if-down.d/addresses
-	dh_link /etc/network/if-pre-up.d/conflicts /etc/network/if-post-down.d/conflicts
-	dh_link /etc/network/if-pre-up.d/vpnc /etc/network/if-down.d/vpnc
-
