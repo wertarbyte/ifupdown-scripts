@@ -28,7 +28,7 @@ fi
 if [ -n "$IF_PAN_ADDRESS" ]; then
   if [ "$MODE" = "start" ]; then
 	$HCITOOL cc "$IF_PAN_ADDRESS" && \
-	$HCITOOL enc "$IF_PAN_ADDRESS" && \
+	{ $HCITOOL enc "$IF_PAN_ADDRESS"; true; } && \
 	$PAND -n -c "$IF_PAN_ADDRESS"
   else
 	$PAND -k "$IF_PAN_ADDRESS"
