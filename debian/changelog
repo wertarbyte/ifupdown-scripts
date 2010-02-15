@@ -1,3 +1,10 @@
+ifupdown-scripts-wa (0.2.1-1) unstable; urgency=low
+
+  * move link instructions to .links file
+  * make encryption for bluetooth PAN optional
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Mon, 15 Feb 2010 10:20:12 +0100
+
 ifupdown-scripts-wa (0.2.0-2) unstable; urgency=low
 
   * implemented new buildpackage system
