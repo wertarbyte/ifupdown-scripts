@@ -1,3 +1,9 @@
+ifupdown-scripts-wa (0.3.0-1) unstable; urgency=low
+
+  * add pm-utils script
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Tue, 20 Jul 2010 22:47:03 +0200
+
 ifupdown-scripts-wa (0.2.1-1) unstable; urgency=low
 
   * move link instructions to .links file
