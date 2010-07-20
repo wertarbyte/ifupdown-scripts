@@ -1,0 +1,79 @@
+#!/bin/sh
+#
+# Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+#
+# /etc/pm/sleep.d/55ifupdown-network
+#
+# Shut down network interfaces when suspending the system
+# and bring them back up on resume
+#
+
+. "${PM_FUNCTIONS}"
+
+# specify interfaces in /etc/pm/config.d/ifupdown
+#
+# use device names or "all"
+SHUTDOWN_INTERFACES=${SHUTDOWN_INTERFACES:-""}
+
+# devices to bring up  when resuming, use device names or "auto"
+# to bring up the devices that were shut down during suspend
+BRINGUP_INTERFACES=${BRINGUP_INTERFACES:-""}
+
+item_in_list() {
+    local ITEM=$1
+    local LIST=$2
+    local JOKER=${3:-"all"}
+
+    for L in $LIST; do
+        echo "Checking $L"
+        if [ x"$L" = x"$ITEM" ] || [ x"$L" = x"$JOKER" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+suspend_ifupdown() {
+    local CLOSED_INTERFACES=""
+
+    while IFS='=' read DEVICE PROFILE; do
+        # ignore the loopback device
+        if [ x"$DEVICE" != "xlo" ]; then
+            echo "Inspecting $DEVICE"
+            if item_in_list "$DEVICE" $SHUTDOWN_DEVICES "all"; then
+                echo "Shutting down $DEVICE"
+                /sbin/ifdown $DEVICE
+
+                CLOSED_INTERFACES="$CLOSED_INTERFACES
+$DEVICE=$PROFILE"
+
+            fi
+        fi
+    done < /etc/network/run/ifstate
+
+    echo $CLOSED_INTERFACES | savestate ifupdown_interfaces
+}
+
+resume_ifupdown() {
+    restorestate ifupdown_interfaces | \
+    while IFS='=' read DEVICE PROFILE; do
+        # we ignore the profile the interface was in due
+        # to the existance of mapping scripts
+        if item_in_list "$DEVICE" "$BRINGUP_INTERFACES" "auto"; then
+            echo "Bringing up $DEVICE" >&2
+            /sbin/ifup "$DEVICE"
+        fi
+    done
+}
+
+case "$1" in
+	hibernate|suspend)
+            suspend_ifupdown
+        ;;
+	thaw|resume)
+            resume_ifupdown
+        ;;
+	*)
+            exit $NA
+        ;;
+esac

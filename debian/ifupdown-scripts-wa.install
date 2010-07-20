@@ -4,3 +4,5 @@ ifupdown.d/pan /etc/network/if-pre-up.d
 ifupdown.d/vpnc /etc/network/if-pre-up.d
 
 ifupdown.d/addresses /etc/network/if-up.d
+
+sleep.d/55ifupdown-network /etc/pm/sleep.d/
