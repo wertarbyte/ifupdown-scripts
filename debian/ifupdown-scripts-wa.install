@@ -1,6 +1,6 @@
-scripts/conflicts /etc/network/if-pre-up.d
-scripts/wireless-tools-snooze /etc/network/if-pre-up.d
-scripts/pan /etc/network/if-pre-up.d
-scripts/vpnc /etc/network/if-pre-up.d
+ifupdown.d/conflicts /etc/network/if-pre-up.d
+ifupdown.d/wireless-tools-snooze /etc/network/if-pre-up.d
+ifupdown.d/pan /etc/network/if-pre-up.d
+ifupdown.d/vpnc /etc/network/if-pre-up.d
 
-scripts/addresses /etc/network/if-up.d
+ifupdown.d/addresses /etc/network/if-up.d
