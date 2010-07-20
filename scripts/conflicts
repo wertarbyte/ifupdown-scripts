@@ -37,7 +37,7 @@ called_by_pid() {
     local DADDY="$2"
 
     PID=$ME
-    while [[ "$PID" -gt 0 ]]; do
+    while [ "$PID" -gt 0 ]; do
         PID=$(ps -p $PID -o ppid=)
         # we found him
         [ "$PID" -eq "$DADDY" ] && return 0
