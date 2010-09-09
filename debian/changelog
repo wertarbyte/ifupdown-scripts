@@ -1,3 +1,10 @@
+ifupdown-scripts-wa (0.4.0-1) unstable; urgency=low
+
+  * add reachable script
+  * add wpa supplicant support to wireless-snooze script
+
+ -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Thu, 09 Sep 2010 11:47:46 +0200
+
 ifupdown-scripts-wa (0.3.0-1) unstable; urgency=low
 
   * add pm-utils script
