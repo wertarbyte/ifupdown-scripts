@@ -1,5 +1,5 @@
 ifupdown.d/conflicts /etc/network/if-pre-up.d
-ifupdown.d/wireless-tools-snooze /etc/network/if-pre-up.d
+ifupdown.d/zz-wireless-snooze /etc/network/if-pre-up.d
 ifupdown.d/pan /etc/network/if-pre-up.d
 ifupdown.d/vpnc /etc/network/if-pre-up.d
 

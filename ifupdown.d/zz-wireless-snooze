@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# /etc/network/if-pre-up.d/wireless-tools-snooze
+# /etc/network/if-pre-up.d/zz-wireless-snooze
 #
 # By Stefan Tomanek <stefan.tomanek@wertarbyte.de>
 # http://wertarbyte.de/debian/
@@ -8,10 +8,12 @@
 # This script can be placed in /etc/network/if-pre-up.d/ to buy
 # some more time for access point association. Some wifi chipsets
 # also give up after missing one association, so the script does
-# trigger a configurable number of reassociations.
+# trigger a configurable number of reassociations when not using
+# wpa supplicant.
 
 IWCONFIG=/sbin/iwconfig
 IFCONFIG=/sbin/ifconfig
+WPACLI=/sbin/wpa_cli
 
 if [ ! -x $IWCONFIG ]; then
   exit 0
@@ -21,13 +23,31 @@ if [ "$IF_WIRELESS_SNOOZE" != "yes" ]; then
   exit 0
 fi
 
-if [ "$IF_WIRELESS_MODE" != "managed" ]; then
+# do we use WPA supplicant?
+WPA=""
+if [ -n "$IF_WPA_SSID" ]; then
+  WPA=1
+  # then we need wpa_cli
+  if [ ! -x $WPACLI ]; then
+    exit 0
+  fi
+fi
+
+if [ "$IF_WIRELESS_MODE" != "managed" ] && [ -z "$WPA" ]; then
   echo "Not a managed interface, snooze disabled" >&2
   exit 0
 fi
 
+wpa_status() {
+  $WPACLI -i $IFACE status | awk -F\= '$1=="wpa_state" {print $2}'
+}
+
 is_associated() {
-  [ "$(/sbin/iwgetid --raw --ap "$IFACE")" != "00:00:00:00:00:00" ]
+  if [ "$WPA" ]; then
+    [ "$(wpa_status)" = "COMPLETED" ]
+  else
+    [ "$(/sbin/iwgetid --raw --ap "$IFACE")" != "00:00:00:00:00:00" ]
+  fi
 }
 
 trigger_association() {
@@ -43,7 +63,7 @@ $IFCONFIG "$IFACE" up
 COUNTDOWN=${IF_WIRELESS_SNOOZE_COUNTDOWN:-10}
 while ! is_associated && [ "$COUNTDOWN" -ge 0 ]; do
     echo "Device $IFACE is not yet associated... ($COUNTDOWN tries left)" >&2
-    if [ "${IF_WIRELESS_WAKEUP:-no}" = "yes" ]; then
+    if [ ! "$WPA" -a "${IF_WIRELESS_WAKEUP:-no}" = "yes" ]; then
         echo "Waking it up..." >&2
         trigger_association
     fi
