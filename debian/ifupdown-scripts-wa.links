@@ -1,4 +1,5 @@
 /etc/network/if-pre-up.d/pan /etc/network/if-post-down.d/pan
 /etc/network/if-up.d/addresses /etc/network/if-down.d/addresses
+/etc/network/if-up.d/reachable /etc/network/if-down.d/reachable
 /etc/network/if-pre-up.d/conflicts /etc/network/if-post-down.d/conflicts
 /etc/network/if-pre-up.d/vpnc /etc/network/if-down.d/vpnc

@@ -1,0 +1,60 @@
+#!/bin/sh
+#
+# /etc/network/if-up.d/reachable
+# /etc/network/if-down.d/reachable
+#
+# Specify reachable destination networks inside
+# an interface stanca:
+#
+# iface eth2
+#   address 10.0.0.1
+#   netmask 255.255.255.255
+#   reachable 10.0.0.2 10.0.0.3
+#   reachable-foo 10.0.0.2 10.0.0.3
+#   reachable-bar 10.0.0.4 10.0.0.5
+#   # subnet reachable via Gateway
+#   reachable-baz via 10.0.0.2 10.0.0.128/25
+#
+# Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# http://wertarbyte.de/debian/
+
+CMD_IP=/bin/ip
+
+if [ ! -x $CMD_IP ]; then
+  exit 0
+fi
+
+if [ "$MODE" = "start" ]; then
+  OP="add"
+else
+  OP="del"
+fi
+
+REACHABLE="$(/usr/bin/awk 'BEGIN {
+    for (key in ENVIRON) {
+        if (key ~ /^IF_REACHABLE(_|$)/) {
+            split(ENVIRON[key], A);
+            GW="";
+            if (A[1] == "via") {
+                GW=A[2];
+                delete A[1];
+                delete A[2];
+            }
+            for (j in A) {
+                print A[j], GW;
+            }
+        }
+    }
+}')"
+
+# Nothing to do?
+if [ -z "$REACHABLE" ]; then
+    exit 0
+fi
+
+echo "$REACHABLE" | while read DEST GW; do
+  [ -n "$GW" ] && RPATH="via $GW" || RPATH="dev $IFACE";
+  FULL_CMD="$CMD_IP route $OP $DEST $RPATH"
+  $FULL_CMD || \
+  echo "Error executing: $FULL_CMD" >&2
+done
