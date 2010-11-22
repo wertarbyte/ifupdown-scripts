@@ -1,0 +1,4 @@
+debian/ifupdown-scripts-wa/
+debian/ifupdown-scripts-wa.substvars
+debian/*.log
+debian/files
