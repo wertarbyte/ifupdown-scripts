@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# Stefan Tomanek <stefan.tomanek+ifupdown@wertarbyte.de>
 #
 # /etc/pm/sleep.d/55ifupdown-network
 #

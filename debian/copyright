@@ -1,20 +1,18 @@
 This package was debianized by:
 
-    Stefan Tomanek <stefan.tomanek@wertarbyte.de> on Fri, 03 Jul 2009 10:05:14 +0200
+    Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de> on Fri, 03 Jul 2009 10:05:14 +0200
 
 It was downloaded from:
 
-    <url://example.com>
+    http://github.com/wertarbyte.de/ifupdown-scripts/
 
-Upstream Author(s):
+Upstream Author:
 
-    <put author's name and email here>
-    <likewise for another author>
+    Stefan Tomanek <stefan.tomanek+ifupdown@wertarbyte.de>
 
 Copyright:
 
-    <Copyright (C) YYYY Firstname Lastname>
-    <likewise for another author>
+    <Copyright (C) 2010 Stefan Tomanek>
 
 License:
 
@@ -36,9 +34,6 @@ Public License version 3 can be found in `/usr/share/common-licenses/GPL-3'.
 
 The Debian packaging is:
 
-    Copyright (C) 2009 Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+    Copyright (C) 2009 Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>
 
 and is licensed under the GPL version 3, see above.
-
-# Please also look if there are files or directories which have a
-# different copyright/license attached and list them here.

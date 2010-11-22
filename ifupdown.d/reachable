@@ -15,7 +15,7 @@
 #   # subnet reachable via Gateway
 #   reachable-baz via 10.0.0.2 10.0.0.128/25
 #
-# Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# Stefan Tomanek <stefan.tomanek+ifupdown@wertarbyte.de>
 # http://wertarbyte.de/debian/
 
 CMD_IP=/bin/ip

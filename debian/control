@@ -1,10 +1,12 @@
 Source: ifupdown-scripts-wa
 Section: admin
 Priority: extra
-Maintainer: Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+Maintainer: Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.8.1
 Homepage: http://wertarbyte.de/
+Vcs-Git: git://github.com/wertarbyte/ifupdown-scripts.git
+Vcs-Browser: http://github.com/wertarbyte/ifupdown-scripts
 
 Package: ifupdown-scripts-wa
 Architecture: all

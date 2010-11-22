@@ -2,7 +2,7 @@
 #
 # /etc/network/if-pre-up.d/zz-wireless-snooze
 #
-# By Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# By Stefan Tomanek <stefan.tomanek+ifupdown@wertarbyte.de>
 # http://wertarbyte.de/debian/
 #
 # This script can be placed in /etc/network/if-pre-up.d/ to buy

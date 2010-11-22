@@ -3,58 +3,58 @@ ifupdown-scripts-wa (0.4.0-1) unstable; urgency=low
   * add reachable script
   * add wpa supplicant support to wireless-snooze script
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Thu, 09 Sep 2010 11:47:46 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Thu, 09 Sep 2010 11:47:46 +0200
 
 ifupdown-scripts-wa (0.3.0-1) unstable; urgency=low
 
   * add pm-utils script
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Tue, 20 Jul 2010 22:47:03 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Tue, 20 Jul 2010 22:47:03 +0200
 
 ifupdown-scripts-wa (0.2.1-1) unstable; urgency=low
 
   * move link instructions to .links file
   * make encryption for bluetooth PAN optional
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Mon, 15 Feb 2010 10:20:12 +0100
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Mon, 15 Feb 2010 10:20:12 +0100
 
 ifupdown-scripts-wa (0.2.0-2) unstable; urgency=low
 
   * implemented new buildpackage system
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Tue, 13 Oct 2009 16:54:42 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Tue, 13 Oct 2009 16:54:42 +0200
 
 ifupdown-scripts-wa (0.2.0-1) unstable; urgency=low
 
   * updated debian/control information
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Mon, 12 Oct 2009 20:04:55 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Mon, 12 Oct 2009 20:04:55 +0200
 
 ifupdown-scripts-wa (0.2.0) unstable; urgency=low
 
   * fixed script permissions
   * changed version numbering scheme
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Sun, 11 Oct 2009 20:04:05 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Sun, 11 Oct 2009 20:04:05 +0200
 
 ifupdown-scripts-wa (0.1.20091010) unstable; urgency=low
 
   * added vpnc script
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Sat, 10 Oct 2009 10:52:38 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Sat, 10 Oct 2009 10:52:38 +0200
 
 ifupdown-scripts-wa (0.1.20091007) unstable; urgency=low
 
   * made conflicts script aware of netplugd
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Wed, 07 Oct 2009 10:59:24 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Wed, 07 Oct 2009 10:59:24 +0200
 
 ifupdown-scripts-wa (0.1.20090904) unstable; urgency=low
 
   * fixed a small mistake in conflicts script that prevented the specification
     of multiple conflicting interfaces
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Fri, 04 Sep 2009 16:53:15 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Fri, 04 Sep 2009 16:53:15 +0200
 
 ifupdown-scripts-wa (0.1.20090811) unstable; urgency=low
 
@@ -66,29 +66,29 @@ ifupdown-scripts-wa (0.1.20090807) unstable; urgency=low
 
   * addresses script can now use the address labels specified in /etc/network/interfaces
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Fri, 07 Aug 2009 10:14:45 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Fri, 07 Aug 2009 10:14:45 +0200
 
 ifupdown-scripts-wa (0.1.20090801) unstable; urgency=low
 
   * updated conflicts script
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Sat, 01 Aug 2009 12:57:59 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Sat, 01 Aug 2009 12:57:59 +0200
 
 ifupdown-scripts-wa (0.1.20090730) unstable; urgency=low
 
   * the addresses script can now create alias devices visible to legacy applications like "ifconfig"
 
- -- Stefan Tomanek <stefan.tomanek@wertarbygte.de>  Thu, 30 Jul 2009 16:14:53 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbygte.de>  Thu, 30 Jul 2009 16:14:53 +0200
 
 ifupdown-scripts-wa (0.1.20090712) unstable; urgency=low
 
   * Minor fixes to wireless-tools-snooze
   * triggering the interface must now be explicitly enabled
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Sun, 12 Jul 2009 22:43:37 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Sun, 12 Jul 2009 22:43:37 +0200
 
 ifupdown-scripts-wa (0.1.20090703) unstable; urgency=low
 
   * Initial Release.
 
- -- Stefan Tomanek <stefan.tomanek@wertarbyte.de>  Fri, 03 Jul 2009 10:05:14 +0200
+ -- Stefan Tomanek <stefan.tomanek+debian@wertarbyte.de>  Fri, 03 Jul 2009 10:05:14 +0200

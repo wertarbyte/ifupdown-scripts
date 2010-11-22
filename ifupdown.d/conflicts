@@ -3,7 +3,7 @@
 # /etc/network/if-pre-up.d/conflicts
 # /etc/network/if-post-down.d/conflicts
 #
-# Stefan Tomanek <stefan.tomanek@wertarbyte.de>
+# Stefan Tomanek <stefan.tomanek+ifupdown@wertarbyte.de>
 # http://wertarbyte.de/debian/
 #
 # This scripts takes down specified network interfaces
