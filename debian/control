@@ -17,23 +17,23 @@ Description: Additional ifupdown scripts for configuring network devices
  This package includes the following scripts extending the ifupdown system
  with useful features. All scripts are configured through additional statements
  in /etc/network/interfaces and integrate nicely:
- * addresses
+  * addresses
      allows multiple addresses to be added to an network device
      in a convenient CIDR notation
- * reachable
+  * reachable
      add additional networks reachable through a configured interface, either
      directly or by using a connected gateway
- * conflicts
+  * conflicts
      automatically (de)configures an interface when another one comes up
      or goes down
- * pan
+  * pan
      connects your computer to an Bluetooth PAN access point
      before configuring the interface
- * vpnc
+  * vpnc
      controls a cisco VPN connect through ifupdown
- * wireless-tools-snooze
+  * wireless-tools-snooze
      waits for association with the access point before retrieving
      an IP address for the wireless network
- * ifupdown-network
+  * ifupdown-network
     pm-utils script that shuts down specified network devices during
     suspend and restores them during resume
